@@ -410,27 +410,24 @@
   
   
     <article id="comments" lazyload>
-      <script src="//cdn.jsdelivr.net/npm/@waline/client"></script>
-
-  <div id="waline"></div>
+      
+  <div id="twikoo"></div>
   <script type="text/javascript">
-    Fluid.utils.loadComments('#waline', function() {
-      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
-      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
         var options = Object.assign(
-          {"serverURL":"https://vercel-walin-dxkkrh2ln-lgdtd3.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"vendors":null,"js":{"waline":"npm/@waline/client/dist/Waline.min.js"}},
+          {"envId":"https://vercel-walin-dxkkrh2ln-lgdtd3.vercel.app/","region":"ap-shanghai","path":"window.location.pathname","visiter":false},
           {
-            el: '#waline',
-            path: window.location.pathname,
-			serverURL: 'https://blog-five-pi-74.vercel.app/',
+            el: '#twikoo',
+            path: window.location.pathname.replace('index.html','')
+            onCommentLoaded: function() {
+              var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+              Fluid.plugins.imageCaption(imgSelector);
+              Fluid.plugins.fancyBox(imgSelector);
+            }
           }
         )
-        Waline.init(options);
-        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
-          var imgSelector = '#waline .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
+        twikoo.init(options)
       });
     });
   </script>
